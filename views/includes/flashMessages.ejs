@@ -1,0 +1,13 @@
+
+<% 
+  let kinds = Object.keys(flash || {});
+  if (kinds.length > 0) { 
+%>
+  <ul>
+    <% kinds.forEach(kind => { %>
+      <% flash[kind].forEach(message => { %>
+        <li class="flash <%= kind %>"><%= message %></li>
+      <% }) %>
+    <% }) %>
+  </ul>
+<% } %>

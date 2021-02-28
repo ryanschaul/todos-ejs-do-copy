@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+  
+<%- include('includes/sharedHead.ejs') %>
+
+  <body>
+    <header>
+      <h1>Todo Tracker</h1>
+      <div class="actions">
+        <a href="/lists" class="list">All Lists</a>
+      </div>
+    </header>
+
+    <main>
+      <%- include('includes/flashMessages.ejs') %>
+
+      <section id="todos" class="<%= todoList.isDone() ? 'done' : '' %>">
+        <header>
+          <h2><%= todoList.title %></h2>
+          <ul>
+            <% if (todoList.size() > 0 && !todoList.isDone()) { %>
+              <li>
+                <form action="/lists/<%= todoList.id %>/complete_all" method="POST" class="complete_all">
+                  <button type="submit" class="check">Complete All</button>
+                </form>
+              </li>
+            <% } %>
+            <li>
+              <form action="/lists/<%= todoList.id %>/edit" method="GET">
+                <button type="submit" class="edit">Edit List</button>
+              </form>
+            </li>
+          </ul>
+        </header>
+
+        <ul>
+          <% todos.forEach(todo => { %>
+            <li class="<%= todo.isDone() ? 'done' : '' %>">
+              <form action="/lists/<%= todoList.id %>/todos/<%= todo.id %>/toggle" method="POST" class="check">
+                <input type="hidden" name="done" value="<%= !todo.isDone() %>">
+                <button>Done</button>
+              </form>
+              <h3><%= todo.title %></h3>
+              <form action="/lists/<%= todoList.id %>/todos/<%= todo.id %>/destroy" method="POST" class="delete">
+                <button>Delete</button>
+              </form>
+            </li>
+          <% }) %>
+        </ul>
+
+        <form action="/lists/<%= todoList.id %>/todos" method="POST">
+          <dl>
+            <dt>
+              <label for="todoTitle">Enter a new todo item:</label>
+            </dt>
+            <dd>
+              <input type="text" name="todoTitle" placeholder="Something to do" >
+            </dd>
+          </dl>
+          <fieldset class="actions">
+            <button>Add</button>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+  </body>
+
+</html>

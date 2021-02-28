@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<%- include('includes/sharedHead.ejs') %>
+
+  <body>
+    <header>
+      <h1>Todo Tracker</h1>
+    </header>
+
+    <main>
+      <%- include('includes/flashMessages.ejs') %>
+
+      <form action="/lists" method="post">
+        <dl>
+          <dt>
+            <label for="todoListTitle">Enter the title for your new list:</label>
+          </dt>
+          <dd>
+            <input 
+              type="text" 
+              id="todoListTitle" 
+              name="todoListTitle" 
+              placeholder="List Title"
+              value="<%= todoListTitle %>"
+            />
+          </dd>
+        </dl>
+        <fieldset class="actions">
+          <input type="submit" value="Save" /><a href="/lists">Cancel</a>
+        </fieldset>
+      </form>
+    </main>
+    
+  </body>
+
+</html>

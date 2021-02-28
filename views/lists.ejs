@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+  
+<%- include('includes/sharedHead.ejs') %>
+
+  <body>
+    <header>
+      <h1>Todo Tracker</h1>
+      <div class="actions">
+        <a class="add" href="/lists/new">New List</a>
+      </div>
+    </header>
+
+    <main>
+      <%- include('includes/flashMessages.ejs') %>
+
+      <% if (todoLists === undefined || todoLists.length === 0) { %>
+        <p id="no_list">You don't have any todo lists. Why not create one?</p>
+      <% } else { %>
+
+        <ul id="lists">
+          <% todoLists.forEach(todoList => { %>
+            <li class="<%= todoList.isDone() ? 'done' : '' %>">
+              <a href="/lists/<%= todoList.id %>">
+                <h2><%= todoList.title %></h2>
+                <p><%= todoList.allDone().size() %> / <%= todoList.size() %></p>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+
+      <% } %>
+    </main>
+  </body>
+
+</html>
