@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const morgan = require('morgan');
 const port = 3000;
-const host = "localhost";
+// const host = "localhost";
 
 const bodyParser = require('body-parser');
 const flash = require("express-flash");
@@ -299,6 +299,6 @@ app.use((err, req, res, _next) => {
   res.status(404).send(err.message);
 });
 
-app.listen(port, host, () => {
-  console.log(`Server listening on port: ${port} of ${host}...`);
+app.listen(port, () => {
+  console.log(`Server listening on port: ${port} ...`);
 })
